@@ -1,4 +1,4 @@
-http.host: "0.0.0.0"
+http.host: "127.0.0.1"
 xpack.monitoring.elasticsearch.hosts: [ "https://elasticsearch:9200" ]
 xpack.monitoring.elasticsearch.ssl.certificate_authority: /usr/share/logstash/config/certs/ca.crt
 
