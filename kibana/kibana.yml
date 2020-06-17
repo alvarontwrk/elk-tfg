@@ -4,8 +4,8 @@ elasticsearch.hosts: [ "https://elasticsearch:9200" ]
 xpack.monitoring.ui.container.elasticsearch.enabled: true
 
 # Creds
-elasticsearch.username: kibana
-elasticsearch.password: tfgkibana1920
+elasticsearch.username: elastic
+elasticsearch.password: tfgelastic1920
 elasticsearch.ssl.certificateAuthorities: ["/usr/share/kibana/config/certs/ca.crt"]
 
 server.ssl.enabled: true
