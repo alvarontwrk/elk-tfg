@@ -1,0 +1,41 @@
+version: '3.2'
+services:
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+        ports:
+            -   "9200:9200"
+            -   "9300:9300"
+        volumes:
+            -   ~/projects/tfg/docker/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+            -   ~/projects/tfg/docker/ssl/node01.key:/usr/share/elasticsearch/config/certs/node01.key
+            -   ~/projects/tfg/docker/ssl/node01.crt:/usr/share/elasticsearch/config/certs/node01.crt
+            -   ~/projects/tfg/docker/ssl/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt
+        environment:
+            discovery.type: single-node
+            ELASTIC_PASSWORD: tfgelastic1920
+            ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+
+    logstash:
+        image: docker.elastic.co/logstash/logstash:7.6.2
+        ports:
+            -   "9600:9600"
+            -   "10514:10514"
+        volumes:
+            -   ~/projects/tfg/docker/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+            -   ~/projects/tfg/docker/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+            -   ~/projects/tfg/docker/ssl/ca.crt:/usr/share/logstash/config/certs/ca.crt
+        depends_on:
+            -   elasticsearch
+
+
+    kibana:
+        image: docker.elastic.co/kibana/kibana:7.6.2
+        ports:
+            -   "5601:5601"
+        volumes:
+            -   ~/projects/tfg/docker/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+            -   ~/projects/tfg/docker/ssl/ca.crt:/usr/share/kibana/config/certs/ca.crt
+            -   ~/projects/tfg/docker/ssl/kibana.key:/usr/share/kibana/config/certs/kibana.key
+            -   ~/projects/tfg/docker/ssl/kibana.crt:/usr/share/kibana/config/certs/kibana.crt
+        depends_on:
+            -   elasticsearch
