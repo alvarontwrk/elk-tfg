@@ -1,5 +1,16 @@
 version: '3.2'
 services:
+    config-provider:
+        build:
+            context: ./config-provider
+        ports:
+            -   "5050:443"
+        volumes:
+            -   ./ssl/config-provider.crt:/etc/nginx/config-provider.crt
+            -   ./ssl/config-provider.key:/etc/nginx/config-provider.key
+            -   ./scripts/provision-client.sh:/srv/flask_app/config/client.sh
+            -   ./scripts/provision-server.sh:/srv/flask_app/config/server.sh
+
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
         ports:
