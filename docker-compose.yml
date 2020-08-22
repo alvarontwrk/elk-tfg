@@ -3,6 +3,8 @@ services:
     script-runner:
         build:
             context: ./script-runner
+        volumes:
+            -   .:/workdir
     config-provider:
         build:
             context: ./config-provider
