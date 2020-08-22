@@ -1,5 +1,8 @@
 version: '3.2'
 services:
+    script-runner:
+        build:
+            context: ./script-runner
     config-provider:
         build:
             context: ./config-provider
@@ -10,6 +13,8 @@ services:
             -   ./ssl/config-provider.key:/etc/nginx/config-provider.key
             -   ./scripts/provision-client.sh:/srv/flask_app/config/client.sh
             -   ./scripts/provision-server.sh:/srv/flask_app/config/server.sh
+        depends_on:
+            -   script-runner
 
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
@@ -25,6 +30,8 @@ services:
             discovery.type: single-node
             ELASTIC_PASSWORD: tfgelastic1920
             ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+        depends_on:
+            -   script-runner
 
     logstash:
         image: docker.elastic.co/logstash/logstash:7.6.2
@@ -37,6 +44,7 @@ services:
             -   ./ssl/ca.crt:/usr/share/logstash/config/certs/ca.crt
         depends_on:
             -   elasticsearch
+            -   script-runner
 
 
     kibana:
@@ -50,3 +58,4 @@ services:
             -   ./ssl/kibana.crt:/usr/share/kibana/config/certs/kibana.crt
         depends_on:
             -   elasticsearch
+            -   script-runner
