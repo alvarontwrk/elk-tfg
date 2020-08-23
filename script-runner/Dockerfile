@@ -1,8 +1,8 @@
 FROM alpine:latest
 RUN apk add --no-cache bash
 RUN apk add --no-cache openssl
+RUN mkdir volume
 RUN mkdir workdir
-RUN mkdir /scripts
 WORKDIR /workdir
-COPY script.sh /scripts
-ENTRYPOINT bash /scripts/script.sh
+COPY script.sh /workdir
+ENTRYPOINT bash /workdir/script.sh

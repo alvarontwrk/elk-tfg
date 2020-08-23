@@ -4,7 +4,7 @@ services:
         build:
             context: ./script-runner
         volumes:
-            -   .:/workdir
+            -   .:/volume
     config-provider:
         build:
             context: ./config-provider
