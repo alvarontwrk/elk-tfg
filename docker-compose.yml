@@ -13,8 +13,10 @@ services:
         volumes:
             -   ./storage/config-provider/ssl:/etc/nginx/ssl
             -   ./storage/config-provider/scripts:/srv/flask_app/config
+            -   ./scripts/wait-for-script-runner.sh:/tmp/wait-for-script-runner.sh
         depends_on:
             -   script-runner
+        command: ["/tmp/wait-for-script-runner.sh", "script-runner", "./start.sh"]
 
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
