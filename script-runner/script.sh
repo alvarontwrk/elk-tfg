@@ -23,3 +23,5 @@ mkdir -p /volume/storage/kibana/ssl
 cp ca.crt /volume/storage/kibana/ssl/ca.crt
 cp kibana.key /volume/storage/kibana/ssl/kibana.key
 cp kibana.crt /volume/storage/kibana/ssl/kibana.crt
+
+nc -kl 1234
