@@ -11,7 +11,7 @@ services:
         ports:
             -   "5050:443"
         volumes:
-            -   ./storage/config-provider/ssl:/etc/nginx
+            -   ./storage/config-provider/ssl:/etc/nginx/ssl
             -   ./storage/config-provider/scripts:/srv/flask_app/config
         depends_on:
             -   script-runner
