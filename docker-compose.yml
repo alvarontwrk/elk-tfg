@@ -25,39 +25,45 @@ services:
             -   "9300:9300"
         volumes:
             -   ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-            -   ./ssl/node01.key:/usr/share/elasticsearch/config/certs/node01.key
-            -   ./ssl/node01.crt:/usr/share/elasticsearch/config/certs/node01.crt
-            -   ./ssl/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt
+            -   ./storage/elasticsearch/ssl:/usr/share/elasticsearch/config/certs
+            -   ./scripts/wait-for-script-runner.sh:/tmp/wait-for-script-runner.sh
         environment:
             discovery.type: single-node
             ELASTIC_PASSWORD: tfgelastic1920
             ES_JAVA_OPTS: "-Xmx256m -Xms256m"
         depends_on:
             -   script-runner
+        command: ["/tmp/wait-for-script-runner.sh", "script-runner", "/usr/local/bin/docker-entrypoint.sh"]
 
     logstash:
-        image: docker.elastic.co/logstash/logstash:7.6.2
+            #image: docker.elastic.co/logstash/logstash:7.6.2
+        build:
+            context: ./logstash
         ports:
             -   "9600:9600"
             -   "10514:10514"
         volumes:
             -   ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
             -   ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
-            -   ./ssl/ca.crt:/usr/share/logstash/config/certs/ca.crt
+            -   ./storage/logstash/ssl:/usr/share/logstash/config/certs
+            -   ./scripts/wait-for-script-runner.sh:/tmp/wait-for-script-runner.sh
         depends_on:
             -   elasticsearch
             -   script-runner
-
+        command: ["/tmp/wait-for-script-runner.sh", "script-runner", "/usr/local/bin/docker-entrypoint"]
+    
 
     kibana:
-        image: docker.elastic.co/kibana/kibana:7.6.2
+            #image: docker.elastic.co/kibana/kibana:7.6.2
+        build:
+            context: ./kibana
         ports:
             -   "5601:5601"
         volumes:
             -   ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
-            -   ./ssl/ca.crt:/usr/share/kibana/config/certs/ca.crt
-            -   ./ssl/kibana.key:/usr/share/kibana/config/certs/kibana.key
-            -   ./ssl/kibana.crt:/usr/share/kibana/config/certs/kibana.crt
+            -   ./storage/kibana/ssl:/usr/share/kibana/config/certs
+            -   ./scripts/wait-for-script-runner.sh:/tmp/wait-for-script-runner.sh
         depends_on:
             -   elasticsearch
             -   script-runner
+        command: ["/tmp/wait-for-script-runner.sh", "script-runner", "/usr/local/bin/kibana-docker"]
