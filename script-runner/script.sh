@@ -26,4 +26,8 @@ cp kibana.key /volume/storage/kibana/ssl/kibana.key
 cp kibana.crt /volume/storage/kibana/ssl/kibana.crt
 chown -R 1000 /volume/storage/kibana
 
+mkdir -p /volume/storage/report-generator/ssl
+cp report-generator.crt /volume/storage/report-generator/ssl
+cp report-generator.key /volume/storage/report-generator/ssl
+
 nc -vlkp 1234 -e /bin/echo PONG

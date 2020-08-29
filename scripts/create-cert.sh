@@ -18,3 +18,8 @@ openssl x509 -req -in kibana.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out k
 openssl genrsa -out config-provider.key 2048
 openssl req -new -sha256 -key config-provider.key -subj "/C=ES/ST=Andalusia/O=TFG/CN=config-provider" -out config-provider.csr
 openssl x509 -req -in config-provider.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out config-provider.crt -days 500 -sha256 -passin pass:testing
+
+# Report-generator
+openssl genrsa -out report-generator.key 2048
+openssl req -new -sha256 -key report-generator.key -subj "/C=ES/ST=Andalusia/O=TFG/CN=report-generator" -out report-generator.csr
+openssl x509 -req -in report-generator.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out report-generator.crt -days 500 -sha256 -passin pass:testing
