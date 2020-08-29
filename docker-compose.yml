@@ -35,6 +35,21 @@ services:
             -   script-runner
         command: ["/tmp/wait-for-script-runner.sh", "script-runner", "/usr/local/bin/docker-entrypoint.sh"]
 
+    report-generator:
+        build:
+            context: ./report-generator
+        ports:
+            -   "5051:443"
+        volumes:
+          -   ./storage/report-generator/ssl:/etc/nginx/ssl
+          -   ./report-generator/templates:/srv/flask_app/templates
+          -   ./scripts/wait-for-script-runner.sh:/tmp/wait-for-script-runner.sh
+        depends_on:
+          -   script-runner
+          -   elasticsearch
+        command: ["/tmp/wait-for-script-runner.sh", "script-runner", "./start.sh"]
+
+
     logstash:
             #image: docker.elastic.co/logstash/logstash:7.6.2
         build:
