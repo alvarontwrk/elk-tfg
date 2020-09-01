@@ -52,7 +52,7 @@ def get_ssh_conn(coll):
 def hello():
     data = {}
 
-    client = connections.create_connection(hosts=['https://logstation:9200'], http_auth=('elastic', 'tfgelastic1920'), verify_certs=False)
+    client = connections.create_connection(hosts=['https://elasticsearch:9200'], http_auth=('elastic', 'tfgelastic1920'), verify_certs=False)
 
     s = Search(using=client, index="inventory-*")
     s.aggs.bucket('hosts', 'terms', field='host.keyword')
