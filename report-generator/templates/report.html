@@ -1,1 +1,102 @@
-{{ data.host }}
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″/>
+  </head>
+  <body>
+    <h1 style='font-size: 100px; text-align: center; margin-top: 100px; margin-bottom: 300px'>Informe - PoC</h1>
+    <div class='m-5'>
+      <h1>Hosts</h1>
+      <p>Se ha recogido informaci&#xF3;n de los siguientes hosts:</p>
+      <table class='table table-bordered'>
+        <tr>
+          <th scope='col'>Hostname</th>
+          <th scope='col'>N&#xFA;mero de logs</th>
+        </tr>
+        {% for host in data.hosts %}
+        <tr>
+          <td>{{ host.key }}</td>
+          <td>{{ host.doc_count }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% for host in data.hosts %}
+    <div style="page-break-before: always; page-break-after: always; width: 100%"></div>
+    <div class='m-5'>
+      <h1>{{ host.key }}</h1>
+      <p>A continuaci&#xF3;n, se describe la informaci&#xF3;n encontrada en el host {{ host.key }}</p>
+      <h2 class='mt-5'>Clasificaci&#xF3;n de logs</h2>
+      <p>La informaci&#xF3;n recogida tiene la siguiente clasificaci&#xF3;n:</p>
+      <table class='table table-bordered'>
+        <tr>
+          <th scope='col'>Clasificaci&#xF3;n</th>
+          <th scope='col'>N&#xFA;mero de logs</th>
+        </tr>
+        {% for severity in host.severities %}
+        <tr>
+          <td>{{ severity.key }}</td>
+          <td>{{ severity.doc_count }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <h2 class='mt-5'>Programas</h2>
+      <p>Se ha recogido informaci&#xF3;n de los siguientes programas:</p>
+      <table class='table table-bordered'>
+        <tr>
+          <th scope='col'>Programa</th>
+          <th scope='col'>N&#xFA;mero de logs</th>
+        </tr>
+        {% for programname in host.programnames %}
+        <tr>
+          <td>{{ programname.key }}</td>
+          <td>{{ programname.doc_count }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <h2 class='mt-5'>Ejecuciones sudo</h2>
+      <p>Se han ejecutado los siguientes comandos como sudo:</p>
+      <table class='table table-bordered'>
+        <tr>
+          <th scope='col'>Fecha</th>
+          <th scope='col'>Usuario</th>
+          <th scope='col'>Terminal</th>
+          <th scope='col'>Directorio</th>
+          <th scope='col'>Ejecuta como usuario</th>
+          <th scope='col'>Comando</th>
+        </tr>
+        {% for sudo in host.sudocommands %}
+        <tr>
+          <td>{{ sudo.date }}</td>
+          <td>{{ sudo.user }}</td>
+          <td>{{ sudo.tty }}</td>
+          <td>{{ sudo.pwd }}</td>
+          <td>{{ sudo.sudouser }}</td>
+          <td>{{ sudo.command }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <h2 class='mt-5'>Conexiones SSH</h2>
+      <p>Se han llevado a cabo las siguientes conexiones SSH:</p>
+      <table class='table table-bordered'>
+        <tr>
+          <th scope='col'>Fecha conexi&#xF3;n</th>
+          <th scope='col'>Usuario</th>
+          <th scope='col'>IP</th>
+          <th scope='col'>Puerto</th>
+          <th scope='col'>Fecha desconexi&#xF3;n</th>
+        </tr>
+        {% for sudo in host.sshconn %}
+        <tr>
+          <td>{{ sudo.conndate }}</td>
+          <td>{{ sudo.user }}</td>
+          <td>{{ sudo.ip }}</td>
+          <td>{{ sudo.port }}</td>
+          <td>{{ sudo.discdate }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% endfor %}
+  </body>
+</html>
