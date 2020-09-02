@@ -23,3 +23,14 @@ openssl x509 -req -in config-provider.csr -CA ca.crt -CAkey ca.key -CAcreateseri
 openssl genrsa -out report-generator.key 2048
 openssl req -new -sha256 -key report-generator.key -subj "/C=ES/ST=Andalusia/O=TFG/CN=report-generator" -out report-generator.csr
 openssl x509 -req -in report-generator.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out report-generator.crt -days 500 -sha256 -passin pass:testing
+
+# Rsyslog-client
+openssl genrsa -out rsyslog-client.key 2048
+openssl req -new -sha256 -key rsyslog-client.key -subj "/C=ES/ST=Andalusia/O=TFG/CN=client" -out rsyslog-client.csr
+openssl x509 -req -in rsyslog-client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out rsyslog-client.crt -days 500 -sha256 -passin pass:testing
+
+# Rsyslog-server
+openssl genrsa -out rsyslog-server.key 2048
+openssl req -new -sha256 -key rsyslog-server.key -subj "/C=ES/ST=Andalusia/O=TFG/CN=logstation" -out rsyslog-server.csr
+openssl x509 -req -in rsyslog-server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out rsyslog-server.crt -days 500 -sha256 -passin pass:testing
+

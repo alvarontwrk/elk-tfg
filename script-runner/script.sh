@@ -30,4 +30,14 @@ mkdir -p /volume/storage/report-generator/ssl
 cp report-generator.crt /volume/storage/report-generator/ssl
 cp report-generator.key /volume/storage/report-generator/ssl
 
+mkdir -p /volume/storage/rsyslog-client/ssl
+cp rsyslog-client.crt /volume/storage/rsyslog-client/ssl
+cp rsyslog-client.key /volume/storage/rsyslog-client/ssl
+cp ca.crt /volume/storage/rsyslog-client/ssl/ca.crt
+
+mkdir -p /volume/storage/rsyslog-server/ssl
+cp rsyslog-server.crt /volume/storage/rsyslog-server/ssl
+cp rsyslog-server.key /volume/storage/rsyslog-server/ssl
+cp ca.crt /volume/storage/rsyslog-server/ssl/ca.crt
+
 nc -vlkp 1234 -e /bin/echo PONG
