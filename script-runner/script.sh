@@ -20,6 +20,9 @@ chown -R 1000 /volume/storage/elasticsearch
 mkdir -p /volume/storage/logstash/ssl
 cp ca.crt /volume/storage/logstash/ssl/ca.crt
 
+mkdir -p /volume/storage/logstash/logs
+chown -R 1000 /volume/storage/logstash/logs
+
 mkdir -p /volume/storage/kibana/ssl
 cp ca.crt /volume/storage/kibana/ssl/ca.crt
 cp kibana.key /volume/storage/kibana/ssl/kibana.key
