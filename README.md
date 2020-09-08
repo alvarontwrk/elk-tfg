@@ -4,7 +4,7 @@ This project was writen as a PoC for a forensics framework.
 ## docker-compose
 
 The docker-compose script creates the following containers:
-- script-runner: Run all scripts and make the other containers wait.
+- script-runner: Auxiliary container. Run all scripts and make the other containers wait until it's done.
 - config-provider: (5050) Provides configuration for the server and the assets.
 - report-generator: (5051) Generate a PDF report.
 - elasticsearch: (9200,9300) Elasticsearch container
@@ -42,8 +42,10 @@ curl -ks https://logstation:5050/client | bash
 Once the setup is done, Kibana and Report-generator can be used:
 ### Kibana
 - Access https://logstation:5601 
+
 Default credentials: elastic:tfgelastic1920
 
 ## Report-generator
 - Access https://logstation:5051 
+
 Default credentials: none
