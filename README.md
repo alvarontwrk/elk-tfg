@@ -41,9 +41,9 @@ curl -ks https://logstation:5050/client | bash
 ## Usage
 Once the setup is done, Kibana and Report-generator can be used:
 ### Kibana
-- Access https://logstation:5601
+- Access https://logstation:5601 
 Default credentials: elastic:tfgelastic1920
 
 ## Report-generator
-- Access https://logstation:5051
+- Access https://logstation:5051 
 Default credentials: none
