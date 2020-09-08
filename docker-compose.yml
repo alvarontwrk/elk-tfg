@@ -51,7 +51,6 @@ services:
 
 
     logstash:
-            #image: docker.elastic.co/logstash/logstash:7.6.2
         build:
             context: ./logstash
         ports:
@@ -61,6 +60,7 @@ services:
             -   ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
             -   ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
             -   ./storage/logstash/ssl:/usr/share/logstash/config/certs
+            -   ./storage/logstash/logs:/tmp/logs/logstash
             -   ./scripts/wait-for-script-runner.sh:/tmp/wait-for-script-runner.sh
         depends_on:
             -   elasticsearch
@@ -69,7 +69,6 @@ services:
     
 
     kibana:
-            #image: docker.elastic.co/kibana/kibana:7.6.2
         build:
             context: ./kibana
         ports:
