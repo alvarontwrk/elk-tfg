@@ -1,7 +1,7 @@
 Flask==1.0.2
 Jinja2==2.10
 uWSGI==2.0.17.1
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 pdfkit==0.6.1
 elasticsearch_dsl==7.2.1
 requests==2.21.0
